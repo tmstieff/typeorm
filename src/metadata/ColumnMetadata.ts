@@ -212,6 +212,12 @@ export class ColumnMetadata {
      */
     transformer?: ValueTransformer;
 
+    /**
+     * Indicates if the column should perform normalization when being
+     * serialized and deserialized.
+     */
+    normalize: boolean = false;
+
     // ---------------------------------------------------------------------
     // Constructor
     // ---------------------------------------------------------------------

@@ -290,30 +290,32 @@ export class PostgresDriver implements Driver {
         if (value === null || value === undefined)
             return value;
 
-        if (columnMetadata.type === Boolean) {
-            return value === true ? 1 : 0;
+        if (columnMetadata.normalize) {
+            if (columnMetadata.type === Boolean) {
+                return value === true ? 1 : 0;
 
-        } else if (columnMetadata.type === "date") {
-            return DateUtils.mixedDateToDateString(value);
+            } else if (columnMetadata.type === "date") {
+                return DateUtils.mixedDateToDateString(value);
 
-        } else if (columnMetadata.type === "time") {
-            return DateUtils.mixedDateToTimeString(value);
+            } else if (columnMetadata.type === "time") {
+                return DateUtils.mixedDateToTimeString(value);
 
-        } else if (columnMetadata.type === "datetime"
-            || columnMetadata.type === Date
-            || columnMetadata.type === "timestamp"
-            || columnMetadata.type === "timestamp with time zone"
-            || columnMetadata.type === "timestamp without time zone") {
-            return DateUtils.mixedDateToDate(value, true);
+            } else if (columnMetadata.type === "datetime"
+                || columnMetadata.type === Date
+                || columnMetadata.type === "timestamp"
+                || columnMetadata.type === "timestamp with time zone"
+                || columnMetadata.type === "timestamp without time zone") {
+                return DateUtils.mixedDateToDate(value, true);
 
-        } else if (columnMetadata.type === "json" || columnMetadata.type === "jsonb") {
-            return JSON.stringify(value);
+            } else if (columnMetadata.type === "json" || columnMetadata.type === "jsonb") {
+                return JSON.stringify(value);
 
-        } else if (columnMetadata.type === "simple-array") {
-            return DateUtils.simpleArrayToString(value);
-            
-        } else if (columnMetadata.type === "simple-json") {
-            return DateUtils.simpleJsonToString(value);
+            } else if (columnMetadata.type === "simple-array") {
+                return DateUtils.simpleArrayToString(value);
+
+            } else if (columnMetadata.type === "simple-json") {
+                return DateUtils.simpleJsonToString(value);
+            }
         }
 
         return value;
@@ -329,27 +331,29 @@ export class PostgresDriver implements Driver {
         if (value === null || value === undefined)
             return value;
 
-        if (columnMetadata.type === Boolean) {
-            return value ? true : false;
+        if (columnMetadata.normalize) {
+            if (columnMetadata.type === Boolean) {
+                return value ? true : false;
 
-        } else if (columnMetadata.type === "datetime"
-            || columnMetadata.type === Date
-            || columnMetadata.type === "timestamp"
-            || columnMetadata.type === "timestamp with time zone"
-            || columnMetadata.type === "timestamp without time zone") {
-            return DateUtils.normalizeHydratedDate(value);
+            } else if (columnMetadata.type === "datetime"
+                || columnMetadata.type === Date
+                || columnMetadata.type === "timestamp"
+                || columnMetadata.type === "timestamp with time zone"
+                || columnMetadata.type === "timestamp without time zone") {
+                return DateUtils.normalizeHydratedDate(value);
 
-        } else if (columnMetadata.type === "date") {
-            return DateUtils.mixedDateToDateString(value);
+            } else if (columnMetadata.type === "date") {
+                return DateUtils.mixedDateToDateString(value);
 
-        } else if (columnMetadata.type === "time") {
-            return DateUtils.mixedTimeToString(value);
+            } else if (columnMetadata.type === "time") {
+                return DateUtils.mixedTimeToString(value);
 
-        } else if (columnMetadata.type === "simple-array") {
-            return DateUtils.stringToSimpleArray(value);
+            } else if (columnMetadata.type === "simple-array") {
+                return DateUtils.stringToSimpleArray(value);
 
-        } else if (columnMetadata.type === "simple-json") {
-            return DateUtils.stringToSimpleJson(value);
+            } else if (columnMetadata.type === "simple-json") {
+                return DateUtils.stringToSimpleJson(value);
+            }
         }
 
         return value;
