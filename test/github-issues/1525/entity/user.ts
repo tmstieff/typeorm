@@ -9,14 +9,17 @@ export class User extends BaseEntity {
     @Column()
     name: string;
 
-    @Column({type: 'timestamp', transformer: {
+    @Column({
+        type: 'timestamp',
+        transformer: {
             from (raw: Date): string {
                 return raw.toISOString();
             },
             to (str: string) {
                 return new Date(str);
             }
-        }
+        },
+        normalize: false,
     })
     created_date: string;
 }

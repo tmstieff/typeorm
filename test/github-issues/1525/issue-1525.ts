@@ -10,7 +10,7 @@ describe("github issues > #1525 Incorrect behavior with timestamp columns and cu
     let connections: Connection[] = [];
     before(async () => connections = await createTestingConnections({
         entities: [__dirname + "/entity/*{.js,.ts}"],
-        enabledDrivers: ["websql"]
+        enabledDrivers: ["postgres"]
     }));
     beforeEach(() => reloadTestingDatabases(connections));
     after(() => closeTestingConnections(connections));
